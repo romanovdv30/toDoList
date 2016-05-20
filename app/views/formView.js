@@ -3,7 +3,7 @@
         id: "newTask",
 
         template: _.template(
-           '<form id="addTask">'+
+           '<form id="addTask" style="display:none;">'+
                '<div class="row">'+
                    '<div class="form-group col-xs-4 col-xs-offset-3">'+
                        '<h3>Add new task</h3>'+
@@ -35,8 +35,7 @@
         ),
 
         initialize: function() {
-            this.hiding();
-            this.cacheViewSelectors();
+
         },
 
         events:{
@@ -55,6 +54,7 @@
                     this.model.toJSON()
                 )
             );
+            this.cacheViewSelectors();
             return this.$el;
         },
 
@@ -68,8 +68,12 @@
             this.clearInput();
         },
 
-        hiding:function(){
-            this.$el.hide();
+        hide:function(timeout){
+            this.$el.hide(timeout);
+        },
+
+        show:function(timeout){
+            this.$el.show(timeout);
         },
 
         clearInput: function(){

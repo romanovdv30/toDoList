@@ -27,13 +27,13 @@
         ),
 
         events:{
-            "click #create": "createFormEvent",
+            "click #create": "onCreate",
             "click #list": "showTaskList"
         },
 
-        createFormEvent: function(event){
+        onCreate: function(event){
             event.preventDefault();
-            vent.trigger("creatingForm");
+            this.options.onCreate();
         },
 
         showTaskList: function(event){
@@ -41,8 +41,8 @@
             vent.trigger("listShowing");
         },
 
-        initialize: function() {
-
+        initialize: function(options) {
+            this.options = options;
         },
 
         render: function() {

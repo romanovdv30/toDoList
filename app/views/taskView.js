@@ -22,56 +22,54 @@
         '</div>'
     ),
 
-    initialize: function(){
-        this.listenTo(this.model,"change", this.render, this);
-        this.listenTo(this.model,"destroy", this.remove, this);
-        this.listenTo(vent,"saveEdit", this.saveChanges, this);
-    },
+        initialize: function (options) {
+            this.options = options;
+            this.listenTo(this.model, "change", this.render, this);
+            this.listenTo(this.model, "destroy", this.remove, this);
+            this.listenTo(vent, "saveEdit", this.saveChanges, this);
+        },
 
-    render:function() {
-        this.$el.html(
-            this.template(
-                this.model.toJSON()
-            )
-        );
-        return this.$el;
-    },
+        render: function () {
+            this.$el.html(
+                this.template(
+                    this.model.toJSON()
+                )
+            );
+            return this.$el;
+        },
 
-    events : {
-    "click .edit" : "editForm",
-    "click .del" : "destroyTask",
-    "click .check": "changeStatus"
-    },
+        events: {
+            "click .edit": "editRecord",
+            "click .del": "destroyTask",
+            "click .check": "changeStatus"
+        },
 
-    changeStatus:function(){
-        this.$el.removeClass("incomplete");
-        this.$el.addClass("complete");
-        if (this.model.get("status")==="Incomplete") {
-          this.model.set("status","Complete");
+        changeStatus: function () {
+            this.$el.removeClass("incomplete");
+            this.$el.addClass("complete");
+            if (this.model.get("status") === "Incomplete") {
+                this.model.set("status", "Complete");
 
-        } else{
-           this.model.set("status","Incomplete");
-      }
-    },
+            } else {
+                this.model.set("status", "Incomplete");
+            }
+        },
 
-    editForm: function(){
-        vent.trigger("editing",[
-            this.model.get("taskName"),
-            this.model.get("taskDescription")
-        ]);
-    },
+        editRecord: function () {
+            this.options.onEdit(this.model);
+        },
 
-    saveChanges:function(args) {
-        this.model.set("taskName",args[0]);
-        this.model.set("taskDescription",args[1]);
-    },
+        saveChanges: function (args) {
+            this.model.set("taskName", args[0]);
+            this.model.set("taskDescription", args[1]);
+        },
 
-    destroyTask: function() {
-        this.model.destroy();
-    },
+        destroyTask: function () {
+            this.model.destroy();
+        },
 
-    remove: function() {
-        this.$el.remove();
-    }
+        remove: function () {
+            this.$el.remove();
+        }
 });
 })();
