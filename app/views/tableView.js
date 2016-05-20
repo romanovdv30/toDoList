@@ -83,12 +83,11 @@
             this.listenTo(this.collection, "sorting", this.sort, this);
             this.listenTo(this.collection, "add", this.renderOneElement, this);
             this.children = [];
-
-            this.$childContainer = this.$el.find("tbody");
         },
 
         render: function () {
             this.$el.append(this.template({}));
+            this.$childContainer = this.$el.find("tbody");
             this.collection.each(this.renderOneElement, this);
 
             return this.$el;

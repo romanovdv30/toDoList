@@ -15,8 +15,17 @@
         },
 
         initialize: function () {
-            debugger;
-            this.fetch();
+            this.getData();
+        },
+
+        getData: function () {
+            var self = this;
+            $.get(this.url)
+                .then(function (res) {
+                    res.forEach(function (data) {
+                        self.add(data);
+                    });
+                });
         }
     });
 

@@ -11,24 +11,25 @@
             this.listenTo(vent, "saving", this.hideForm, this);
             this.listenTo(vent, "canceling", this.hideForm, this);
             this.listenTo(vent, "listShowing", this.hideForm, this);
-
+            //debugger;
             this.addChildViews()
                 .cacheViewSelectors();
            
         },
         
         addChildViews: function() {
-            var tasksCollection = new App.Collections.Tasks([]);
+           this.tasksCollection = new App.Collections.Tasks([]);
             
             var header = new App.Views.Header({
                 model: new Backbone.Model({})
             });
+
             var tasksViews = new App.Views.Table({
-                collection: tasksCollection
+                collection: this.tasksCollection
             });
 
             var addNewTasks = new App.Views.AddTaskView({
-                collection: tasksCollection
+                collection: this.tasksCollection
             });
 
             var form = new App.Views.Form({

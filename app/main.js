@@ -10,13 +10,12 @@
     }
     
     function renderApp() {
-
-        var layout = new App.Views.Layout({
+        App.layout =  new App.Views.Layout({
             model: new Backbone.Model({})
         });
 
         $('body').append(
-            layout.render()
+            App.layout.render()
         );
     }
     
