@@ -22,12 +22,12 @@
             
             var header = new App.Views.Header({
                 model: new Backbone.Model({}),
-                onCreate: this.showForm
+                onCreate: this.createForm.bind(this)
             });
 
             var tasksViews = new App.Views.Table({
                 collection: this.tasksCollection,
-                onEdit: this.showForm
+                onEdit: this.createForm.bind(this)
             });
             //
             //var addNewTasks = new App.Views.AddTaskView({
@@ -47,7 +47,7 @@
 
             return this;
         },
-        showForm: function(model){
+        createForm: function(model){
             this.taskForm = new App.Views.Form({
                 model: model || new Backbone.Model({})
             });

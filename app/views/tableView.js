@@ -16,9 +16,9 @@
                     '<thead >' +
                         '<tr class="active">' +
                             '<th id="number-column">#</th>' +
-                            '<th id="name-column">Task name</th>' +
-                            '<th id="description-column">Task description</th>' +
-                            '<th>Task complete state</th>' +
+                            '<th id="name-column">Name</th>' +
+                            '<th id="description-column">Description</th>' +
+                            '<th>Complete state</th>' +
                             '<th>Edit link</th>' +
                         '</tr>' +
                     '</thead>' +
