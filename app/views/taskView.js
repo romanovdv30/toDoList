@@ -4,7 +4,6 @@
     className : "task incomplete",
 
     template:_.template(
-        '<div>'+
             '<td><%=id%></td>'+
             '<td><%=taskName%></td>'+
             '<td><%=taskDescription%></td>'+
@@ -18,8 +17,7 @@
                 '<div class="btn-group">'+
                     '<button type="button" class="del btn btn-primary">Delete</button>' +
                 '</div>'+
-            '</td>'+
-        '</div>'
+            '</td>'
     ),
 
         initialize: function (options) {
