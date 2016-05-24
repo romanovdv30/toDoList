@@ -8,7 +8,7 @@
             '<td><%=taskName%></td>'+
             '<td><%=taskDescription%></td>'+
             '<td><input type="checkbox" class="check">' +
-                '<span class="status">  <%=status%></span>' +
+                '<span class="status">Incomplete</span>' +
             '</td>'+
             '<td class="active">' +
                 '<div class="btn-group">'+

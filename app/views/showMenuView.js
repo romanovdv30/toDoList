@@ -1,4 +1,4 @@
-(function () {
+(function (App,vent) {
     App.Views.Show = Backbone.View.extend({
         id: "showMenu",
 
@@ -53,4 +53,4 @@
             return this.$el;
         }
     });
-})();
+})(App,vent);

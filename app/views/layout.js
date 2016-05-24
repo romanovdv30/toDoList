@@ -11,17 +11,15 @@
             this.listenTo(vent, "saving", this.hideForm, this);
             this.listenTo(vent, "canceling", this.hideForm, this);
             this.listenTo(vent, "listShowing", this.hideForm, this);
-            //debugger;
             this.addChildViews()
                 .cacheViewSelectors();
            
         },
         
         addChildViews: function() {
-
             var header = new App.Views.Header({
-                model: new Backbone.Model({}),
-                onCreate: this.createForm.bind(this)
+                model: new Backbone.Model({})
+                //onCreate: this.createForm.bind(this)
             });
 
             var main = new App.Views.Main ({
@@ -48,6 +46,7 @@
 
             return this;
         },
+
         createForm: function(model){
             this.taskForm = new App.Views.Form({
                 model: model || new Backbone.Model({})
@@ -62,17 +61,17 @@
             return this;
         },
 
+        showForm: function () {
+            this.$tasks.hide(450);
+            this.taskForm.hide(450);
+        },
+
         hideForm: function () {
             this.taskForm.hide(450);
             this.$tasks.show(450);
 
         },
 
-        showForm: function () {
-            this.$tasks.hide(450);
-            this.taskForm.hide(450);
-        },
-        
         render: function() {
             return this.$el;
         }

@@ -4,14 +4,6 @@
 
         template: _.template(
             '<div>' +
-                '<div class="sorting">' +
-                    '<span>Show </span>' +
-                    '<div class="btn-group" role="group">' +
-                        '<button type="button" class="btn btn-default" id="showAll">All</button>' +
-                        '<button type="button" class="btn btn-default" id="showCompleted">Completed</button>' +
-                        '<button type="button" class="btn btn-default" id="showNotCompleted">Not completed</button>' +
-                    '</div>' +
-                '</div>' +
                 '<table class="table table-hover table-bordered">' +
                     '<thead >' +
                         '<tr class="active">' +
