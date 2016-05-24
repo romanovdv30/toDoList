@@ -1,4 +1,4 @@
-(function(){
+(function(App, vent){
     App.Views.TaskView = Backbone.View.extend({
     tagName : "tr",
     className : "task incomplete",
@@ -70,4 +70,4 @@
             this.$el.remove();
         }
 });
-})();
+})(App,vent);

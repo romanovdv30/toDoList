@@ -18,17 +18,18 @@
         },
         
         addChildViews: function() {
-           this.tasksCollection = new App.Collections.Tasks([]);
-            
+
             var header = new App.Views.Header({
                 model: new Backbone.Model({}),
                 onCreate: this.createForm.bind(this)
             });
 
-            var tasksViews = new App.Views.Table({
-                collection: this.tasksCollection,
-                onEdit: this.createForm.bind(this)
+            var main = new App.Views.Main ({
+                model: new Backbone.Model({})
             });
+
+            //
+
             //
             //var addNewTasks = new App.Views.AddTaskView({
             //    collection: this.tasksCollection
@@ -39,7 +40,7 @@
                     header.render()
                 )
                 .append(
-                tasksViews.render()
+                    main.render()
                 );
                 //.append(
                 //    addNewTasks.render()
