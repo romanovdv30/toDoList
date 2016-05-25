@@ -1,9 +1,9 @@
-(function() {
+(function(App,vent) {
     App.Views.Form = Backbone.View.extend({
-        id: "newTask",
+        id: "formForTask",
 
         template: _.template(
-           '<form id="addTask" style="display:none;">'+
+           '<form id="addTask">'+
                '<div class="row">'+
                    '<div class="form-group col-xs-4 col-xs-offset-3">'+
                        '<h3>Add new task</h3>'+
@@ -35,7 +35,8 @@
         ),
 
         initialize: function() {
-
+            this.cacheViewSelectors();
+            this.$el.hide();
         },
 
         events:{
@@ -54,7 +55,7 @@
                     this.model.toJSON()
                 )
             );
-            this.cacheViewSelectors();
+
             return this.$el;
         },
 
@@ -81,4 +82,4 @@
             this.$taskDescription .val('');
         }
     });
-})();
+})(App,vent);

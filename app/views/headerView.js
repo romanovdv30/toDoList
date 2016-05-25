@@ -1,4 +1,4 @@
-(function() {
+(function(App,vent) {
     App.Views.Header = Backbone.View.extend({
         tagName: "div",
         className: "container-fluid",
@@ -28,7 +28,7 @@
 
         events:{
             "click #create": "onCreate",
-            "click #list": "showTaskList"
+            "click #list": "onTable"
         },
 
         onCreate: function(event){
@@ -36,9 +36,9 @@
             this.options.onCreate();
         },
 
-        showTaskList: function(event){
+        onTable: function(event){
             event.preventDefault();
-            vent.trigger("listShowing");
+            this.options.onList();
         },
 
         initialize: function(options) {
@@ -54,4 +54,4 @@
             return this.$el;
         }
     });
-})();
+})(App,vent);

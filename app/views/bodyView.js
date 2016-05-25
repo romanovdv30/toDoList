@@ -4,7 +4,6 @@
 
         initialize: function () {
             this.addChildViews();
-            this.cacheViewSelectors();
         },
 
         addChildViews: function () {
@@ -14,8 +13,7 @@
                 collection: this.tasksCollection
             });
             var tasksViews = new App.Views.Table({
-                collection: this.tasksCollection,
-                onEdit: this.createForm.bind(this)
+                collection: this.tasksCollection
             });
 
             this.$el.append(
@@ -25,30 +23,6 @@
                     tasksViews.render()
                 )
             return this;
-        },
-
-        cacheViewSelectors: function () {
-            this.$tasks = this.$el.find("#tasks");
-            return this;
-        },
-
-        createForm: function(model){
-            this.taskForm = new App.Views.Form({
-                model: model || new Backbone.Model({})
-            });
-            this.$el.append(this.taskForm.render());
-            this.showForm();
-        },
-
-        showForm: function () {
-            this.$tasks.hide(450);
-            this.taskForm.hide(450);
-        },
-
-        hideForm: function () {
-            this.taskForm.hide(450);
-            this.$tasks.show(450);
-
         },
 
         render: function () {

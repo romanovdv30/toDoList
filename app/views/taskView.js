@@ -1,4 +1,4 @@
-(function(App, vent){
+(function(App,vent){
     App.Views.TaskView = Backbone.View.extend({
     tagName : "tr",
     className : "task incomplete",
@@ -8,7 +8,7 @@
             '<td><%=taskName%></td>'+
             '<td><%=taskDescription%></td>'+
             '<td><input type="checkbox" class="check">' +
-                '<span class="status">Incomplete</span>' +
+                '<span class="status">  <%=status%></span>' +
             '</td>'+
             '<td class="active">' +
                 '<div class="btn-group">'+

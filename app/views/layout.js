@@ -1,34 +1,35 @@
-(function (App, vent) {
+(function (App) {
     App.Views.Layout = Backbone.View.extend({
         tagName: "div",
         className: "container-fluid",
         id: "layout",
 
         initialize: function () {
-            this.listenTo(vent, "creatingForm", this.showForm, this);
-            this.listenTo(vent, "editing", this.showEditForm, this);
-            this.listenTo(vent, "saveEdit", this.hideForm, this);
-            this.listenTo(vent, "saving", this.hideForm, this);
-            this.listenTo(vent, "canceling", this.hideForm, this);
-            this.listenTo(vent, "listShowing", this.hideForm, this);
+            //this.listenTo(vent, "creatingForm", this.showForm, this);
+            //this.listenTo(vent, "editing", this.createForm, this);
+            //this.listenTo(vent, "saveEdit", this.hideForm, this);
+            //this.listenTo(vent, "saving", this.hideForm, this);
+            //this.listenTo(vent, "canceling", this.hideForm, this);
+            //this.listenTo(vent, "listShowing", this.hideForm, this);
             this.addChildViews()
                 .cacheViewSelectors();
-           
         },
         
         addChildViews: function() {
             var header = new App.Views.Header({
-                model: new Backbone.Model({})
-                //onCreate: this.createForm.bind(this)
+                model: new Backbone.Model({}),
+                onCreate: this.showForm.bind(this),
+                onList: this.showTable.bind(this)
             });
 
             var main = new App.Views.Main ({
                 model: new Backbone.Model({})
             });
 
-            //
+            var taskForm = new App.Views.Form({
+                model: new Backbone.Model({})
+            });
 
-            //
             //var addNewTasks = new App.Views.AddTaskView({
             //    collection: this.tasksCollection
             //});
@@ -39,36 +40,28 @@
                 )
                 .append(
                     main.render()
+                )
+                .append(
+                    taskForm.render()
                 );
-                //.append(
-                //    addNewTasks.render()
-                //)
 
             return this;
         },
 
-        createForm: function(model){
-            this.taskForm = new App.Views.Form({
-                model: model || new Backbone.Model({})
-            });
-            this.$el.append(this.taskForm.render());
-            this.showForm();
-        },
-
         cacheViewSelectors: function () {
-            this.$tasks = this.$el.find("#tasks");
-
+            this.$body = this.$el.find("#main-container");
+            this.$form = this.$el.find("#formForTask");
             return this;
         },
 
         showForm: function () {
-            this.$tasks.hide(450);
-            this.taskForm.hide(450);
+            this.$body.hide(450);
+            this.$form.show(450);
         },
 
-        hideForm: function () {
-            this.taskForm.hide(450);
-            this.$tasks.show(450);
+        showTable: function () {
+            this.$form.hide(450);
+            this.$body.show(450);
 
         },
 

@@ -1,4 +1,4 @@
-(function () {
+(function (App,vent) {
     App.Views.Table = Backbone.View.extend({
         id: "tasks",
 
@@ -108,4 +108,4 @@
             Backbone.View.prototype.remove.apply(this, arguments);
         }
     });
-})();
+})(App,vent);
