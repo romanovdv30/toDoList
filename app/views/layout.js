@@ -4,6 +4,7 @@
         className: "container-fluid",
         id: "layout",
 
+
         initialize: function () {
             //this.listenTo(vent, "creatingForm", this.showForm, this);
             //this.listenTo(vent, "editing", this.createForm, this);
@@ -14,21 +15,20 @@
             this.addChildViews()
                 .cacheViewSelectors();
         },
-        
-        addChildViews: function() {
+
+        addChildViews: function () {
             var header = new App.Views.Header({
                 model: new Backbone.Model({}),
                 onCreate: this.showForm.bind(this),
                 onList: this.showTable.bind(this)
             });
 
-            var main = new App.Views.Main ({
-                model: new Backbone.Model({})
+            var main = new App.Views.Main({
+                model: new Backbone.Model({}),
+                onCreate: this.showForm.bind(this),
+                onList: this.showTable.bind(this)
             });
 
-            var taskForm = new App.Views.Form({
-                model: new Backbone.Model({})
-            });
 
             //var addNewTasks = new App.Views.AddTaskView({
             //    collection: this.tasksCollection
@@ -41,31 +41,31 @@
                 .append(
                     main.render()
                 )
-                .append(
-                    taskForm.render()
-                );
 
             return this;
         },
 
         cacheViewSelectors: function () {
-            this.$body = this.$el.find("#main-container");
+            this.$show = this.$el.find("#showMenu");
+            this.$table = this.$el.find("#tasks");
             this.$form = this.$el.find("#formForTask");
             return this;
         },
 
         showForm: function () {
-            this.$body.hide(450);
+            this.$show.hide(450);
+            this.$table.hide(450);
             this.$form.show(450);
         },
 
         showTable: function () {
             this.$form.hide(450);
-            this.$body.show(450);
+            this.$show.show(450);
+            this.$table.show(450);
 
         },
 
-        render: function() {
+        render: function () {
             return this.$el;
         }
     });

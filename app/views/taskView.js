@@ -8,7 +8,7 @@
             '<td><%=taskName%></td>'+
             '<td><%=taskDescription%></td>'+
             '<td><input type="checkbox" class="check">' +
-                '<span class="status">  <%=status%></span>' +
+                '<span class="status">Incomplete</span>' +
             '</td>'+
             '<td class="active">' +
                 '<div class="btn-group">'+
@@ -25,6 +25,7 @@
             this.listenTo(this.model, "change", this.render, this);
             this.listenTo(this.model, "destroy", this.remove, this);
             this.listenTo(vent, "saveEdit", this.saveChanges, this);
+
         },
 
         render: function () {
@@ -42,14 +43,15 @@
             "click .check": "changeStatus"
         },
 
-        changeStatus: function () {
-            this.$el.removeClass("incomplete");
-            this.$el.addClass("complete");
-            if (this.model.get("status") === "Incomplete") {
-                this.model.set("status", "Complete");
-
+        changeStatus: function (event) {
+            if(this.model.get("incomplete")){
+                this.model.set('incomplete',false);
+                this.$el.find(".status").html("Complete");
+                event.currentTarget.checked = true;
             } else {
-                this.model.set("status", "Incomplete");
+                this.model.set('incomplete',true);
+                this.$el.find(".status").html("Incomplete");
+                event.currentTarget.checked = false;
             }
         },
 

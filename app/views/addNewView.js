@@ -1,6 +1,5 @@
 (function () {
     App.Views.AddTaskView = Backbone.View.extend({
-        el: "#addTask",
 
         events: {
             "click #save": "submit",
@@ -9,7 +8,7 @@
 
         submit: function () {
             var newTask = {
-                number: (this.collection.length + 1),
+                id: this.collection.length + 1,
                 taskName: this.$el.find("#task-name").val(),
                 taskDescription: this.$el.find("#task-description").val()
             };
