@@ -6,12 +6,6 @@
 
 
         initialize: function () {
-            //this.listenTo(vent, "creatingForm", this.showForm, this);
-            //this.listenTo(vent, "editing", this.createForm, this);
-            //this.listenTo(vent, "saveEdit", this.hideForm, this);
-            //this.listenTo(vent, "saving", this.hideForm, this);
-            //this.listenTo(vent, "canceling", this.hideForm, this);
-            //this.listenTo(vent, "listShowing", this.hideForm, this);
             this.addChildViews()
                 .cacheViewSelectors();
         },
@@ -28,11 +22,6 @@
                 onCreate: this.showForm.bind(this),
                 onList: this.showTable.bind(this)
             });
-
-
-            //var addNewTasks = new App.Views.AddTaskView({
-            //    collection: this.tasksCollection
-            //});
 
             this.$el
                 .append(

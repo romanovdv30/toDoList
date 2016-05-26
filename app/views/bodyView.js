@@ -4,12 +4,14 @@
         events: {
             "click #save": "addNewTask",
             "click #cancelNewTask": "clearInput"
+
         },
 
         initialize: function (options) {
-            this.addChildViews();
             this.options = options;
+            this.addChildViews();
         },
+
 
         addChildViews: function () {
             this.tasksCollection = new App.Collections.Tasks([]);
@@ -18,7 +20,8 @@
                 collection: this.tasksCollection
             });
             var tasksViews = new App.Views.Table({
-                collection: this.tasksCollection
+                collection: this.tasksCollection,
+                onEdit: this.editTask.bind(this)
             });
             var taskForm = new App.Views.Form({
                 model: new Backbone.Model({})
@@ -41,10 +44,16 @@
             return this.$el;
         },
 
+        editTask:function(model){
+          this.options.onCreate();
+          this.$el.find("#task-name").val(model.get("taskName"));
+          this.$el.find("#task-description").val(model.get("taskDescription"));
+        },
+
         addNewTask: function () {
             var newTask = {
                 id: this.tasksCollection.length + 1,
-                taskName: this.$el.find("#task-name").val(),
+                taskName:  this.$el.find("#task-name").val(),
                 taskDescription: this.$el.find("#task-description").val()
             };
             var newModel = new App.Models.Task(newTask);
@@ -55,7 +64,7 @@
         clearInput: function () {
             this.$el.find("#task-name").val("");
             this.$el.find("#task-description").val("");
-        },
-
+            this.options.onList();
+        }
     });
 })(App, vent);
