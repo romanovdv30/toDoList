@@ -5,7 +5,7 @@
         events: {
             "click .save": "addNewTask",
             "click .cancelNewTask": "clearInput",
-            "click edit": "editForm"
+            "click .editTask": "saveTaskEditing"
         },
 
         initialize: function (options) {
@@ -13,28 +13,6 @@
             this.options = options;
             this.addChildViews();
         },
-
-        createForm: function (model) {
-            if (document.querySelector("#formForTask")) {
-                return;
-            }
-            if (model) {
-                var taskForm = new App.Views.Form({
-                    model: model,
-                    editForm: this.editForm.bind(this)
-                });
-            } else {
-                var taskForm = new App.Views.Form({
-                    model: new Backbone.Model({})
-                });
-            }
-            this.$el.append(taskForm.render());
-            this.options.onCreate();
-        },
-        editForm: function(){
-
-        },
-
 
         addChildViews: function () {
             this.tasksCollection = new App.Collections.Tasks([]);
@@ -44,7 +22,7 @@
             });
             var tasksViews = new App.Views.Table({
                 collection: this.tasksCollection,
-                onEdit: this.editTask.bind(this)
+                onEdit: this.editForm.bind(this)
             });
 
 
@@ -62,12 +40,37 @@
             return this.$el;
         },
 
+        createForm: function (model) {
+            if (document.querySelector("#formForTask")) {
+                return;
+            }
+            if (model) {
+                var taskForm = new App.Views.Form({
+                    model: model,
+                    editForm: this.editForm.bind(this),
+                    editTask: this.editTask.bind(this)
+                });
+            } else {
+                var taskForm = new App.Views.Form({
+                    model: new Backbone.Model({})
+                });
+            }
+            this.$el.append(taskForm.render());
+            this.options.onCreate();
+        },
 
-        editTask: function (model) {
+        editForm: function (model) {
             this.options.onCreate();
             this.createForm(model);
+            $("#saveButton").replaceWith('<button type="submit" class="btn btn-primary" id="saveEdit">SaveEdit</button>')
             this.$el.find("#task-name").val(model.get("taskName"));
             this.$el.find("#task-description").val(model.get("taskDescription"));
+        },
+
+        editTask: function(model){
+            model.set("taskName", this.$el.find("#task-name").val());
+            model.set("taskDescription", this.$el.find("#task-description").val());
+            this.clearInput();
         },
 
         addNewTask: function () {

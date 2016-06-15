@@ -24,7 +24,7 @@
                '<div class="row">'+
                     '<div class="form-group col-xs-2 col-xs-offset-5">'+
                         '<div class="btn-group">'+
-                            '<button type="submit" class="btn btn-primary save">Save</button>'+
+                            '<button type="submit" class="btn btn-primary save" id="saveButton">Save</button>'+
                         '</div> '+
                         '<div class="btn-group">'+
                            '<button type="button" class="btn btn-primary  cancelNewTask">Cancel</button>'+
@@ -33,8 +33,16 @@
                '</div>'+
             '</form>'
         ),
+        events:{
+            "click #saveEdit" : "saveEditing"
+        },
 
-        initialize: function() {
+        initialize: function(options) {
+            this.options = options;
+        },
+
+        saveEditing: function(){
+            this.options.editTask(this.model);
         },
 
         render: function() {
