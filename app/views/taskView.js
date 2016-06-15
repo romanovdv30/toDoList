@@ -10,8 +10,8 @@
             '<td><input type="checkbox" class="check">' +
                 '<span class="status">Incomplete</span>' +
             '</td>'+
-            '<td class="active">' +
-                '<div class="btn-group">'+
+            '<td>' +
+                '<div class="btn-group task-btn-group">'+
                     '<input type="button" class="btn btn-primary edit" value="Edit">' +
                 '</div>'+
                 '<div class="btn-group">'+
@@ -44,11 +44,15 @@
         changeStatus: function () {
             if(this.model.get("incomplete")){
                 this.model.set('incomplete',false);
+                this.$el.addClass("complete");
                 this.$el.find(".status").html("Complete");
                 this.checked = true;
+
             } else {
                 this.model.set('incomplete',true);
+                this.$el.removeClass("complete");
                 this.$el.find(".status").html("Incomplete");
+
                 this.checked = false;
             }
         },

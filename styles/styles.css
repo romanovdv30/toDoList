@@ -1,0 +1,21 @@
+.complete {
+    background: #d6fff3;
+}
+
+#tasks {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.edit {
+    margin-right: 10px;
+}
+
+th {
+    text-align: center;
+}
+
+.pointer {
+    cursor: pointer;
+}
+

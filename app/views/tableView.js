@@ -5,11 +5,11 @@
         template: _.template(
             '<div>' +
                 '<table class="table table-hover table-bordered">' +
-                    '<thead >' +
+                    '<thead class = "cursor-pointer">' +
                         '<tr class="active">' +
-                            '<th class="id-column">#</th>' +
-                            '<th class="name-column">Name</th>' +
-                            '<th class="description-column">Description</th>' +
+                            '<th class="id-column pointer">#</th>' +
+                            '<th class="name-column pointer">Name</th>' +
+                            '<th class="description-column pointer">Description</th>' +
                             '<th>Complete state</th>' +
                             '<th>Edit link</th>' +
                         '</tr>' +
