@@ -7,9 +7,9 @@
                 '<table class="table table-hover table-bordered">' +
                     '<thead >' +
                         '<tr class="active">' +
-                            '<th id="number-column">#</th>' +
-                            '<th id="name-column">Name</th>' +
-                            '<th id="description-column">Description</th>' +
+                            '<th class="id-column">#</th>' +
+                            '<th class="name-column">Name</th>' +
+                            '<th class="description-column">Description</th>' +
                             '<th>Complete state</th>' +
                             '<th>Edit link</th>' +
                         '</tr>' +
@@ -21,17 +21,14 @@
         ),
 
         events: {
-            "click #showCompleted": "showCompletedTasks",
-            "click #showNotCompleted": "showIncompletedTasks",
-            "click #showAll": "showAllTasks",
-            "click #number-column": "sortByTaskNumber",
-            "click #name-column": "sortByTaskName",
-            "click #description-column": "sortByTaskDescription"
+            "click .id-column": "sortByTaskNumber",
+            "click .name-column": "sortByTaskName",
+            "click .description-column": "sortByTaskDescription"
 
         },
 
         sortByTaskNumber: function () {
-            this.sort("number");
+            this.sort("id");
         },
 
         sortByTaskName: function () {
@@ -40,35 +37,6 @@
 
         sortByTaskDescription: function () {
             this.sort("taskDescription");
-        },
-
-        showCompletedTasks: function () {
-            var elemsIn = this.$el.find(".incomplete");
-            for (var i = 0; i < elemsIn.length; i++) {
-                $(elemsIn[i]).css("display", "none");
-            }
-            var elemsCompl = this.$el.find(".complete");
-            for (var i = 0; i < elemsCompl.length; i++) {
-                $(elemsCompl[i]).css("display", "table-row");
-            }
-        },
-
-        showIncompletedTasks: function () {
-            var elemsCompl = this.$el.find(".complete");
-            for (var i = 0; i < elemsCompl.length; i++) {
-                $(elemsCompl[i]).css("display", "none");
-            }
-            var elemsIn = this.$el.find(".incomplete");
-            for (var i = 0; i < elemsIn.length; i++) {
-                $(elemsIn[i]).css("display", "table-row");
-            }
-        },
-
-        showAllTasks: function () {
-            var elems = this.$el.find(".task");
-            for (var i = 0; i < elems.length; i++) {
-                $(elems[i]).css("display", "table-row");
-            }
         },
 
         initialize: function (options) {
