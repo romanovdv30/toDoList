@@ -1,4 +1,4 @@
-(function (App,vent) {
+(function (App) {
     App.Views.Show = Backbone.View.extend({
         id: "showMenu",
 
@@ -21,31 +21,36 @@
         },
 
         showCompletedTasks: function () {
-            var elemsIn = this.$el.find(".incomplete");
-            for (var i = 0; i < elemsIn.length; i++) {
-                $(elemsIn[i]).css("display", "none");
-            }
-            var elemsCompl = this.$el.find(".complete");
-            for (var i = 0; i < elemsCompl.length; i++) {
-                $(elemsCompl[i]).css("display", "table-row");
+            var models = this.collection.models;
+            var tasks = $(".task");
+            for (var i = 0; i < models.length; i++) {
+                var model = models[i];
+                if(!model.get("incomplete")) {
+                    $(tasks[i]).css("display", "table-row");
+                } else {
+                   $(tasks[i]).css("display", "none");
+                }
             }
         },
 
         showIncompletedTasks: function () {
-            var elemsCompl = this.$el.find(".complete");
-            for (var i = 0; i < elemsCompl.length; i++) {
-                $(elemsCompl[i]).css("display", "none");
-            }
-            var elemsIn = this.$el.find(".incomplete");
-            for (var i = 0; i < elemsIn.length; i++) {
-                $(elemsIn[i]).css("display", "table-row");
+            var models = this.collection.models;
+            var tasks = $(".task");
+            for (var i = 0; i < models.length; i++) {
+                var model = models[i];
+                if(model.get("incomplete")) {
+                    $(tasks[i]).css("display", "table-row");
+                } else {
+                    $(tasks[i]).css("display", "none");
+                }
             }
         },
 
         showAllTasks: function () {
-            var elems = this.$el.find(".task");
-            for (var i = 0; i < elems.length; i++) {
-                $(elems[i]).css("display", "table-row");
+            var models = this.collection.models;
+            var tasks = $(".task");
+            for (var i = 0; i < models.length; i++) {
+                $(tasks[i]).css("display", "table-row");
             }
         },
         render: function () {
@@ -53,4 +58,4 @@
             return this.$el;
         }
     });
-})(App,vent);
+})(App);

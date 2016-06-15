@@ -1,7 +1,7 @@
 (function(App,vent){
     App.Views.TaskView = Backbone.View.extend({
     tagName : "tr",
-    className : "task incomplete",
+    className : "task",
 
     template:_.template(
             '<td><%=id%></td>'+
@@ -24,8 +24,6 @@
             this.options = options;
             this.listenTo(this.model, "change", this.render, this);
             this.listenTo(this.model, "destroy", this.remove, this);
-            this.listenTo(vent, "saveEdit", this.saveChanges, this);
-
         },
 
         render: function () {
@@ -43,25 +41,20 @@
             "click .check": "changeStatus"
         },
 
-        changeStatus: function (event) {
+        changeStatus: function () {
             if(this.model.get("incomplete")){
                 this.model.set('incomplete',false);
                 this.$el.find(".status").html("Complete");
-                event.currentTarget.checked = true;
+                this.checked = true;
             } else {
                 this.model.set('incomplete',true);
                 this.$el.find(".status").html("Incomplete");
-                event.currentTarget.checked = false;
+                this.checked = false;
             }
         },
 
         editRecord: function () {
             this.options.onEdit(this.model);
-        },
-
-        saveChanges: function (args) {
-            this.model.set("taskName", args[0]);
-            this.model.set("taskDescription", args[1]);
         },
 
         destroyTask: function () {
