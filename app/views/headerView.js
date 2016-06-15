@@ -27,13 +27,7 @@
         ),
 
         events:{
-            "click #create": "onCreate",
             "click #list": "onTable"
-        },
-
-        onCreate: function(event){
-            event.preventDefault();
-            this.options.onCreate();
         },
 
         onTable: function(event){

@@ -1,15 +1,38 @@
 (function (App, vent) {
     App.Views.Main = Backbone.View.extend({
         id: "main-container",
-        events: {
-            "click #save": "addNewTask",
-            "click #cancelNewTask": "clearInput"
 
+        events: {
+            "click .save": "addNewTask",
+            "click .cancelNewTask": "clearInput",
+            "click edit": "editForm"
         },
 
         initialize: function (options) {
+            this.listenTo(vent, "form", this.createForm);
             this.options = options;
             this.addChildViews();
+        },
+
+        createForm: function (model) {
+            if (document.querySelector("#formForTask")) {
+                return;
+            }
+            if (model) {
+                var taskForm = new App.Views.Form({
+                    model: model,
+                    editForm: this.editForm.bind(this)
+                });
+            } else {
+                var taskForm = new App.Views.Form({
+                    model: new Backbone.Model({})
+                });
+            }
+            this.$el.append(taskForm.render());
+            this.options.onCreate();
+        },
+        editForm: function(){
+
         },
 
 
@@ -23,18 +46,13 @@
                 collection: this.tasksCollection,
                 onEdit: this.editTask.bind(this)
             });
-            var taskForm = new App.Views.Form({
-                model: new Backbone.Model({})
-            });
+
 
             this.$el.append(
                 showMenu.render()
                 )
                 .append(
                     tasksViews.render()
-                )
-                .append(
-                    taskForm.render()
                 );
 
             return this;
@@ -44,16 +62,18 @@
             return this.$el;
         },
 
-        editTask:function(model){
-          this.options.onCreate();
-          this.$el.find("#task-name").val(model.get("taskName"));
-          this.$el.find("#task-description").val(model.get("taskDescription"));
+
+        editTask: function (model) {
+            this.options.onCreate();
+            this.createForm(model);
+            this.$el.find("#task-name").val(model.get("taskName"));
+            this.$el.find("#task-description").val(model.get("taskDescription"));
         },
 
         addNewTask: function () {
             var newTask = {
                 id: this.tasksCollection.length + 1,
-                taskName:  this.$el.find("#task-name").val(),
+                taskName: this.$el.find("#task-name").val(),
                 taskDescription: this.$el.find("#task-description").val()
             };
             var newModel = new App.Models.Task(newTask);

@@ -1,4 +1,4 @@
-(function(App,vent) {
+(function(App) {
     App.Views.Form = Backbone.View.extend({
         id: "formForTask",
 
@@ -24,10 +24,10 @@
                '<div class="row">'+
                     '<div class="form-group col-xs-2 col-xs-offset-5">'+
                         '<div class="btn-group">'+
-                            '<button type="submit" class="btn btn-primary" id="save">Save</button>'+
+                            '<button type="submit" class="btn btn-primary save">Save</button>'+
                         '</div> '+
                         '<div class="btn-group">'+
-                           '<button type="button" class="btn btn-primary  " id="cancelNewTask">Cancel</button>'+
+                           '<button type="button" class="btn btn-primary  cancelNewTask">Cancel</button>'+
                         '</div> '+
                     '</div>'+
                '</div>'+
@@ -35,18 +35,6 @@
         ),
 
         initialize: function() {
-            this.cacheViewSelectors();
-            this.$el.hide();
-        },
-
-        events:{
-           "click #save": "saveNewTask",
-           "click #cancelNewTask": "cancelForm"
-        },
-
-        cacheViewSelectors: function(){
-            this.$taskName = this.$el.find("task-name");
-            this.$taskDescription = this.$el.find("task-description");
         },
 
         render: function() {
@@ -57,29 +45,7 @@
             );
 
             return this.$el;
-        },
-
-        saveNewTask:function() {
-           vent.trigger("saving");
-           this.clearInput();
-        },
-
-        cancelForm: function(){
-            vent.trigger("canceling");
-            this.clearInput();
-        },
-
-        hide:function(timeout){
-            this.$el.hide(timeout);
-        },
-
-        show:function(timeout){
-            this.$el.show(timeout);
-        },
-
-        clearInput: function(){
-            this.$taskName.val('');
-            this.$taskDescription .val('');
         }
+
     });
-})(App,vent);
+})(App);

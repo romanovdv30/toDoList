@@ -1,9 +1,13 @@
-(function (App) {
+(function (App,vent) {
     App.Views.Layout = Backbone.View.extend({
         tagName: "div",
         className: "container-fluid",
         id: "layout",
 
+        events: {
+            "click #create": "createForm"
+
+        },
 
         initialize: function () {
             this.addChildViews()
@@ -34,21 +38,23 @@
             return this;
         },
 
+        createForm: function(){
+          vent.trigger("form");
+        },
+
         cacheViewSelectors: function () {
             this.$show = this.$el.find("#showMenu");
             this.$table = this.$el.find("#tasks");
-            this.$form = this.$el.find("#formForTask");
             return this;
         },
 
         showForm: function () {
             this.$show.hide(450);
             this.$table.hide(450);
-            this.$form.show(450);
         },
 
         showTable: function () {
-            this.$form.hide(450);
+            this.$el.find("#formForTask").remove();
             this.$show.show(450);
             this.$table.show(450);
 
