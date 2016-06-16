@@ -3,7 +3,7 @@
         id: "task-form",
 
         template: _.template(
-           '<form id="addTask">'+
+           '<div id="addTask">'+
                '<div class="row">'+
                    '<div class="form-group col-xs-4 col-xs-offset-3">'+
                        '<h3>Add new task</h3>'+
@@ -24,14 +24,14 @@
                '<div class="row">'+
                     '<div class="form-group col-xs-2 col-xs-offset-5">'+
                         '<div class="btn-group">'+
-                            '<button type="submit" class="btn btn-primary save" id="saveButton">Save</button>'+
+                            '<button type="button" class="btn btn-primary save" id="saveButton">Save</button>'+
                         '</div> '+
                         '<div class="btn-group">'+
                            '<button type="button" class="btn btn-primary  cancelNewTask">Cancel</button>'+
                         '</div> '+
                     '</div>'+
                '</div>'+
-            '</form>'
+            '</div>'
         ),
         events:{
             "click #saveEdit" : "saveEditing"

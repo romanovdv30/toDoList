@@ -58,7 +58,7 @@
         },
 
         editRecord: function () {
-            this.options.onEdit(this.model);
+            this.options.showTaskForm(this.model);
         },
 
         destroyTask: function () {

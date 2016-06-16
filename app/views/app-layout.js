@@ -1,11 +1,13 @@
-(function (App,vent) {
+(function (App, vent) {
     App.Views.AppLayout = Backbone.View.extend({
         tagName: "div",
         className: "container-fluid",
         id: "layout",
 
         events: {
-
+            "click .save": "addNewTask",
+            "click .cancelNewTask": "clearInput",
+            "click .editTask": "saveTaskEditing"
         },
 
         initialize: function () {
@@ -14,16 +16,19 @@
         },
 
         addChildViews: function () {
+            this.tasksCollection = new App.Collections.Tasks([]);
+
             var header = new App.Views.Header({
                 model: new Backbone.Model({}),
-                showTaskForm: this.showForm.bind(this),
-                showTaskTable: this.showTable.bind(this)
+                showTaskForm: this.showTaskForm.bind(this),
+                showTaskTable: this.showTaskTable.bind(this)
             });
 
             var main = new App.Views.FilteredListView({
                 model: new Backbone.Model({}),
-                showTaskForm: this.showForm.bind(this),
-                showTaskTable: this.showTable.bind(this)
+                collection: this.tasksCollection,
+                showTaskForm: this.showTaskForm.bind(this),
+                showTaskTable: this.showTaskTable.bind(this)
             });
 
             this.$el
@@ -42,7 +47,7 @@
             return this;
         },
 
-        showTaskForm: function () {
+        hideTaskTable: function () {
             this.$taskTable.hide(450);
         },
 
@@ -51,15 +56,15 @@
             this.$taskTable.show(450);
         },
 
-        createForm: function (model) {
-            if (document.querySelector("#formForTask")) {
+        showTaskForm: function (model) {
+            if (document.querySelector("#task-form")) {
                 return;
             }
             if (model) {
                 var taskForm = new App.Views.TaskForm({
                     model: model,
                     editForm: this.editForm.bind(this),
-                    saveChanges: this.editTask.bind(this)
+                    saveChanges: this.saveChanges.bind(this)
                 });
             } else {
                 var taskForm = new App.Views.TaskForm({
@@ -67,18 +72,17 @@
                 });
             }
             this.$el.append(taskForm.render());
-            this.showTaskForm();
+            this.hideTaskTable();
         },
 
         editForm: function (model) {
-            this.options.showTaskForm();
-            this.createForm(model);
+            this.showTaskForm(model);
             $("#saveButton").replaceWith('<button type="submit" class="btn btn-primary" id="saveEdit">SaveEdit</button>')
             this.$el.find("#task-name").val(model.get("taskName"));
             this.$el.find("#task-description").val(model.get("taskDescription"));
         },
 
-        saveChanges: function(model){
+        saveChanges: function (model) {
             model.set("taskName", this.$el.find("#task-name").val());
             model.set("taskDescription", this.$el.find("#task-description").val());
             this.clearInput();
@@ -98,7 +102,7 @@
         clearInput: function () {
             this.$el.find("#task-name").val("");
             this.$el.find("#task-description").val("");
-            this.options.showTaskTable();
+            this.showTaskTable();
         },
 
         render: function () {

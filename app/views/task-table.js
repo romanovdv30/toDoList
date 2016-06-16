@@ -63,7 +63,7 @@
         renderTask: function (task) {
             var taskView = new App.Views.TaskView({
                 model: task,
-                onEdit: this.options.onEdit
+                showTaskForm: this.options.showTaskForm
             });
             this.children.push(taskView);
             this.$childContainer.append(taskView.render());

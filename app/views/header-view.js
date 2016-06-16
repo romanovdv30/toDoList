@@ -1,4 +1,4 @@
-(function(App,vent) {
+(function(App) {
     App.Views.Header = Backbone.View.extend({
         tagName: "div",
         className: "container-fluid",

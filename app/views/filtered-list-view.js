@@ -2,12 +2,6 @@
     App.Views.FilteredListView = Backbone.View.extend({
         id: "filtered-list",
 
-        events: {
-            "click .save": "addNewTask",
-            "click .cancelNewTask": "clearInput",
-            "click .editTask": "saveTaskEditing"
-        },
-
         initialize: function (options) {
             this.listenTo(vent, "form", this.createForm);
             this.options = options;
@@ -15,17 +9,16 @@
         },
 
         addChildViews: function () {
-            this.tasksCollection = new App.Collections.Tasks([]);
-
-            var showMenu = new App.Views.Filter({
-                collection: this.tasksCollection
+            var filter = new App.Views.Filter({
+                collection: this.collection
             });
             var tasksViews = new App.Views.TaskTable({
-                collection: this.tasksCollection
+                collection: this.collection,
+                showTaskForm: this.options.showTaskForm
             });
 
             this.$el.append(
-                showMenu.render()
+                filter.render()
                 )
                 .append(
                     tasksViews.render()
