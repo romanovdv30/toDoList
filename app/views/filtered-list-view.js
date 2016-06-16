@@ -3,7 +3,6 @@
         id: "filtered-list",
 
         initialize: function (options) {
-            this.listenTo(vent, "form", this.createForm);
             this.options = options;
             this.addChildViews();
         },
@@ -14,7 +13,8 @@
             });
             var tasksViews = new App.Views.TaskTable({
                 collection: this.collection,
-                showTaskForm: this.options.showTaskForm
+                showTaskForm: this.options.showTaskForm,
+                showEditForm: this.options.showEditForm,
             });
 
             this.$el.append(

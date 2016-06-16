@@ -6,8 +6,7 @@
 
         events: {
             "click .save": "addNewTask",
-            "click .cancelNewTask": "clearInput",
-            "click .editTask": "saveTaskEditing"
+            "click .cancelNewTask": "clearInput"
         },
 
         initialize: function () {
@@ -27,6 +26,7 @@
             var main = new App.Views.FilteredListView({
                 model: new Backbone.Model({}),
                 collection: this.tasksCollection,
+                showEditForm: this.showEditForm.bind(this),
                 showTaskForm: this.showTaskForm.bind(this),
                 showTaskTable: this.showTaskTable.bind(this)
             });
@@ -63,7 +63,6 @@
             if (model) {
                 var taskForm = new App.Views.TaskForm({
                     model: model,
-                    editForm: this.editForm.bind(this),
                     saveChanges: this.saveChanges.bind(this)
                 });
             } else {
@@ -75,9 +74,9 @@
             this.hideTaskTable();
         },
 
-        editForm: function (model) {
+        showEditForm: function (model) {
             this.showTaskForm(model);
-            $("#saveButton").replaceWith('<button type="submit" class="btn btn-primary" id="saveEdit">SaveEdit</button>')
+            $("#saveButton").replaceWith('<button type="button" class="btn btn-primary" id="saveEdit">Save Changes</button>')
             this.$el.find("#task-name").val(model.get("taskName"));
             this.$el.find("#task-description").val(model.get("taskDescription"));
         },

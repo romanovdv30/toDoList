@@ -42,7 +42,7 @@
         },
 
         saveEditing: function(){
-            this.options.editTask(this.model);
+            this.options.saveChanges(this.model);
         },
 
         render: function() {

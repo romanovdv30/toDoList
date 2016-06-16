@@ -12,7 +12,7 @@
             '</td>'+
             '<td>' +
                 '<div class="btn-group task-btn-group">'+
-                    '<input type="button" class="btn btn-primary edit" value="Edit">' +
+            '<button type="button" class="editTask btn btn-primary">Edit</button>'  +
                 '</div>'+
                 '<div class="btn-group">'+
                     '<button type="button" class="del btn btn-primary">Delete</button>' +
@@ -36,7 +36,7 @@
         },
 
         events: {
-            "click .edit": "editRecord",
+            "click .editTask": "editTask",
             "click .del": "destroyTask",
             "click .check": "changeStatus"
         },
@@ -57,8 +57,8 @@
             }
         },
 
-        editRecord: function () {
-            this.options.showTaskForm(this.model);
+        editTask: function () {
+            this.options.showEditForm(this.model);
         },
 
         destroyTask: function () {

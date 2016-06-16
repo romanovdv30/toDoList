@@ -23,7 +23,7 @@
         events: {
             "click .id-column": "sortByTaskNumber",
             "click .name-column": "sortByTaskName",
-            "click .description-column": "sortByTaskDescription"
+            "click .description-column": "sortByTaskDescription",
 
         },
 
@@ -63,7 +63,8 @@
         renderTask: function (task) {
             var taskView = new App.Views.TaskView({
                 model: task,
-                showTaskForm: this.options.showTaskForm
+                showTaskForm: this.options.showTaskForm,
+                showEditForm: this.options.showEditForm
             });
             this.children.push(taskView);
             this.$childContainer.append(taskView.render());
