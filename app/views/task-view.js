@@ -1,4 +1,4 @@
-(function(App,vent){
+(function(App){
     App.Views.TaskView = Backbone.View.extend({
     tagName : "tr",
     className : "task",
