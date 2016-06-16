@@ -10,7 +10,7 @@
     }
     
     function renderApp() {
-        App.layout =  new App.Views.Layout({
+        App.layout =  new App.Views.AppLayout({
             model: new Backbone.Model({})
         });
 

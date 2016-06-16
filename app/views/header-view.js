@@ -18,8 +18,8 @@
                       '</div>'+
                       '<div class="collapse navbar-collapse" id="responsive-menu">'+
                             '<ul class="nav navbar-nav pull-right">'+
-                                '<li><a href="#" id="list">List</a></li>'+
-                                '<li><a href="#" id="create">Create</a></li>'+
+                                '<li><button type="button" class="tasks-btn btn btn-link">Tasks</button></li>'+
+                                '<li><button type="button" class="create-btn btn btn-link">Create</button></li>'+
                             '</ul>'+
                     '</div>'+
                 '</div>'+
@@ -27,12 +27,16 @@
         ),
 
         events:{
-            "click #list": "onTable"
+            "click .tasks-btn": "showTasks",
+            "click .create-btn":"showTaskForm"
         },
 
-        onTable: function(event){
-            event.preventDefault();
-            this.options.onList();
+        showTasks: function(){
+            this.options.showTaskTable();
+        },
+
+        showTaskForm: function(){
+            this.options.showTaskForm();
         },
 
         initialize: function(options) {

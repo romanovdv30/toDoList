@@ -1,6 +1,6 @@
 (function(App) {
-    App.Views.Form = Backbone.View.extend({
-        id: "formForTask",
+    App.Views.TaskForm = Backbone.View.extend({
+        id: "task-form",
 
         template: _.template(
            '<form id="addTask">'+

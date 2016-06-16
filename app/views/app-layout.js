@@ -1,43 +1,54 @@
-(function (App, vent) {
-    App.Views.Main = Backbone.View.extend({
-        id: "main-container",
+(function (App,vent) {
+    App.Views.AppLayout = Backbone.View.extend({
+        tagName: "div",
+        className: "container-fluid",
+        id: "layout",
 
         events: {
-            "click .save": "addNewTask",
-            "click .cancelNewTask": "clearInput",
-            "click .editTask": "saveTaskEditing"
+
         },
 
-        initialize: function (options) {
-            this.listenTo(vent, "form", this.createForm);
-            this.options = options;
-            this.addChildViews();
+        initialize: function () {
+            this.addChildViews()
+                .cacheViewSelectors();
         },
 
         addChildViews: function () {
-            this.tasksCollection = new App.Collections.Tasks([]);
-
-            var showMenu = new App.Views.Show({
-                collection: this.tasksCollection
-            });
-            var tasksViews = new App.Views.Table({
-                collection: this.tasksCollection,
-                onEdit: this.editForm.bind(this)
+            var header = new App.Views.Header({
+                model: new Backbone.Model({}),
+                showTaskForm: this.showForm.bind(this),
+                showTaskTable: this.showTable.bind(this)
             });
 
+            var main = new App.Views.FilteredListView({
+                model: new Backbone.Model({}),
+                showTaskForm: this.showForm.bind(this),
+                showTaskTable: this.showTable.bind(this)
+            });
 
-            this.$el.append(
-                showMenu.render()
+            this.$el
+                .append(
+                    header.render()
                 )
                 .append(
-                    tasksViews.render()
-                );
+                    main.render()
+                )
 
             return this;
         },
 
-        render: function () {
-            return this.$el;
+        cacheViewSelectors: function () {
+            this.$taskTable = this.$el.find("#filtered-list");
+            return this;
+        },
+
+        showTaskForm: function () {
+            this.$taskTable.hide(450);
+        },
+
+        showTaskTable: function () {
+            this.$el.find("#task-form").remove();
+            this.$taskTable.show(450);
         },
 
         createForm: function (model) {
@@ -45,29 +56,29 @@
                 return;
             }
             if (model) {
-                var taskForm = new App.Views.Form({
+                var taskForm = new App.Views.TaskForm({
                     model: model,
                     editForm: this.editForm.bind(this),
-                    editTask: this.editTask.bind(this)
+                    saveChanges: this.editTask.bind(this)
                 });
             } else {
-                var taskForm = new App.Views.Form({
+                var taskForm = new App.Views.TaskForm({
                     model: new Backbone.Model({})
                 });
             }
             this.$el.append(taskForm.render());
-            this.options.onCreate();
+            this.showTaskForm();
         },
 
         editForm: function (model) {
-            this.options.onCreate();
+            this.options.showTaskForm();
             this.createForm(model);
             $("#saveButton").replaceWith('<button type="submit" class="btn btn-primary" id="saveEdit">SaveEdit</button>')
             this.$el.find("#task-name").val(model.get("taskName"));
             this.$el.find("#task-description").val(model.get("taskDescription"));
         },
 
-        editTask: function(model){
+        saveChanges: function(model){
             model.set("taskName", this.$el.find("#task-name").val());
             model.set("taskDescription", this.$el.find("#task-description").val());
             this.clearInput();
@@ -87,7 +98,11 @@
         clearInput: function () {
             this.$el.find("#task-name").val("");
             this.$el.find("#task-description").val("");
-            this.options.onList();
+            this.options.showTaskTable();
+        },
+
+        render: function () {
+            return this.$el;
         }
     });
 })(App, vent);

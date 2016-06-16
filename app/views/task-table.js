@@ -1,5 +1,5 @@
 (function (App,vent) {
-    App.Views.Table = Backbone.View.extend({
+    App.Views.TaskTable = Backbone.View.extend({
         id: "tasks",
 
         template: _.template(

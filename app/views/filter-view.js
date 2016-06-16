@@ -1,5 +1,5 @@
 (function (App) {
-    App.Views.Show = Backbone.View.extend({
+    App.Views.Filter = Backbone.View.extend({
         id: "showMenu",
 
         template: _.template(
