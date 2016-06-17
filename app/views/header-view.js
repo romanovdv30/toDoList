@@ -27,11 +27,11 @@
         ),
 
         events:{
-            "click .tasks-btn": "showTasks",
+            "click .tasks-btn": "showTaskTable",
             "click .create-btn":"showTaskForm"
         },
 
-        showTasks: function(){
+        showTaskTable: function(){
             this.options.showTaskTable();
         },
 

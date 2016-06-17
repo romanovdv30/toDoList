@@ -1,4 +1,4 @@
-(function (App, vent) {
+(function (App) {
     App.Views.FilteredListView = Backbone.View.extend({
         id: "filtered-list",
 
@@ -29,7 +29,6 @@
 
         render: function () {
             return this.$el;
-        },
-
+        }
     });
-})(App, vent);
+})(App);

@@ -23,7 +23,7 @@
         initialize: function (options) {
             this.options = options;
             this.listenTo(this.model, "change", this.render, this);
-            this.listenTo(this.model, "destroy", this.remove, this);
+            this.listenTo(this.model, "destroy", this.removeTask, this);
         },
 
         render: function () {
@@ -65,7 +65,7 @@
             this.model.destroy();
         },
 
-        remove: function () {
+        removeTask: function () {
             this.$el.remove();
         }
 });

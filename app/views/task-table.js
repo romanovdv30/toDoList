@@ -42,7 +42,7 @@
         initialize: function (options) {
             this.listenTo(this.collection, "sorting", this.sort, this);
             this.listenTo(this.collection, "add", this.renderTask, this);
-            this.listenTo(this.collection, "destroy", this.reNumber, this);
+            this.listenTo(this.collection, "destroy", this.changeNumber, this);
             this.options = options;
             this.children = [];
         },
@@ -55,7 +55,7 @@
             return this.$el;
         },
 
-        reNumber: function(){
+        changeNumber: function(){
            var models = this.collection.models;
            for ( var i = 0; i< models.length; i++ ){
                models[i].set("id", i+1);
