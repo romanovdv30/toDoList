@@ -14,7 +14,7 @@
             var tasksViews = new App.Views.TaskTable({
                 collection: this.collection,
                 showTaskForm: this.options.showTaskForm,
-                showEditForm: this.options.showEditForm,
+                showEditForm: this.options.showEditForm
             });
 
             this.$el.append(
