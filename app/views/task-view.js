@@ -8,15 +8,12 @@
             '<td><%=taskName%></td>'+
             '<td><%=taskDescription%></td>'+
             '<td>' +
-                '<input type="checkbox" class="check" readonly>'+
+                '<input type="checkbox" class="check">'+
             '</td>'+
             '<td>' +
-                '<div class="btn-group task-btn-group">'+
-                    '<button type="button" class="editTask btn btn-primary">Edit</button>'  +
-                '</div>'+
-                '<div class="btn-group">'+
-                    '<button type="button" class="del btn btn-primary">Delete</button>' +
-                '</div>'+
+                '<span class="editTask glyphicon glyphicon-pencil"></span>'  +
+                '<span> | </span>'+
+                '<span class="del glyphicon glyphicon-trash"></span>' +
             '</td>'
     ),
 

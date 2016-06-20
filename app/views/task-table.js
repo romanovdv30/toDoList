@@ -10,7 +10,7 @@
                             '<th class="id-column pointer">#</th>' +
                             '<th class="name-column pointer">Name</th>' +
                             '<th class="description-column pointer">Description</th>' +
-                            '<th>Complete state</th>' +
+                            '<th>Complete</th>' +
                             '<th>Edit link</th>' +
                         '</tr>' +
                     '</thead>' +
