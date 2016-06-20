@@ -2,13 +2,13 @@
     background: #d6fff3;
 }
 
-#tasks {
+#tasks,#form button,#form label {
     margin-top: 20px;
     text-align: center;
     outline: none;
 }
 
-.tasks-btn, .save {
+.tasks-btn, .save, .saveEdit {
     margin-right: 10px;
 }
 
@@ -48,11 +48,13 @@ td {
 .pointer {
     cursor: pointer;
 }
+
 #form {
-    width: 400px;
+    width: 350px;
     margin: 0 auto;
 }
-#form button{
+
+#form button {
     float: right;
 }
 

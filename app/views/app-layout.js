@@ -37,7 +37,6 @@
                 .append(
                     main.render()
                 )
-
             return this;
         },
 
@@ -59,6 +58,7 @@
             if (document.querySelector("#task-form")) {
                 return;
             }
+
             if (model) {
                 var taskForm = new App.Views.TaskForm({
                     model: model,
@@ -75,7 +75,10 @@
 
         showEditForm: function (model) {
             this.showTaskForm(model);
-            $("#saveButton").replaceWith('<button type="button" class="btn btn-primary" id="saveEdit">Save Changes</button>')
+            $("button.save").replaceWith(
+                '<button type="button" class="btn btn saveEdit">Save Changes ' +
+                    '<span class="glyphicon glyphicon-folder-open"></span>'+
+                '</button>');
             this.$el.find("#task-name").val(model.get("taskName"));
             this.$el.find("#task-description").val(model.get("taskDescription"));
         },

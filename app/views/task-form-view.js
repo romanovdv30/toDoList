@@ -24,7 +24,7 @@
            '</div>'
         ),
         events:{
-            "click #saveEdit" : "saveEditing"
+            "click .saveEdit" : "saveEditing"
         },
 
         initialize: function(options) {

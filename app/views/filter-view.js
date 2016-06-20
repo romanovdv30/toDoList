@@ -5,8 +5,8 @@
         template: _.template(
             '<div>' +
                 '<span>Show </span>' +
-                '<div class="btn-group" role="group">' +
-                    '<button type="button" class="btn btn-default" id="showAll">All</button>' +
+                '<div class="btn-group buttons" role="group">' +
+                    '<button type="button" class="btn btn-default active" id="showAll">All</button>' +
                     '<button type="button" class="btn btn-default" id="showCompleted">Completed</button>' +
                     '<button type="button" class="btn btn-default" id="showNotCompleted">Not completed</button>' +
                 '</div>' +
@@ -16,8 +16,16 @@
         events: {
             "click #showCompleted": "showCompletedTasks",
             "click #showNotCompleted": "showIncompletedTasks",
-            "click #showAll": "showAllTasks"
+            "click #showAll": "showAllTasks",
+            "click .buttons": "makeActive"
+        },
 
+        makeActive: function(event) {
+            var childs = $(".buttons").children();
+            for(var i = 0; i < childs.length; i++){
+                childs.removeClass("active")
+            }
+            $(event.target).addClass("active");
         },
 
         showCompletedTasks: function () {
