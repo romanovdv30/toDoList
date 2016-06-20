@@ -29,27 +29,26 @@
         },
 
         showCompletedTasks: function () {
-            var models = this.collection.models;
+            debugger;
             var tasks = $(".task");
-            for (var i = 0; i < models.length; i++) {
-                var model = models[i];
-                if(!model.get("incomplete")) {
-                    $(tasks[i]).css("display", "table-row");
+            for (var i = 0; i < tasks.length; i++) {
+                var task = tasks[i];
+                if($(task).find(".check").prop("checked")) {
+                    $(task).css("display", "table-row");
                 } else {
-                   $(tasks[i]).css("display", "none");
+                   $(task).css("display", "none");
                 }
             }
         },
 
         showIncompletedTasks: function () {
-            var models = this.collection.models;
             var tasks = $(".task");
-            for (var i = 0; i < models.length; i++) {
-                var model = models[i];
-                if(model.get("incomplete")) {
-                    $(tasks[i]).css("display", "table-row");
+            for (var i = 0; i < tasks.length; i++) {
+                var task = tasks[i];
+                if(!$(task).find(".check").prop("checked")) {
+                    $(task).css("display", "table-row");
                 } else {
-                    $(tasks[i]).css("display", "none");
+                    $(task).css("display", "none");
                 }
             }
         },
