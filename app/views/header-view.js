@@ -6,11 +6,11 @@
 
         template: _.template (
             '<div class="row">'+
-                '<h1>To Do List</h1>'+
                 '<div class="navbar navbar-inverse">'+
                     '<div class="container">'+
+                      '<div class="navbar-brand">To Do List</div>'+
                       '<div class="navbar-header pull-left">'+
-                            '<button type="button" class="navbar-toggle pull-left btn-large" data-toggle="collapse" data-target="#responsive-menu">'+
+                            '<button type="button" class="navbar-toggle pull-right btn-large" data-toggle="collapse" data-target="#responsive-menu">'+
                                 '<span class="icon-bar"></span>'+
                                 '<span class="icon-bar"></span>'+
                                 '<span class="icon-bar"></span>'+

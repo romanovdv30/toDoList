@@ -1,4 +1,4 @@
-(function (App,vent) {
+(function (App) {
     App.Views.TaskTable = Backbone.View.extend({
         id: "tasks",
 
@@ -23,8 +23,7 @@
         events: {
             "click .id-column": "sortByTaskNumber",
             "click .name-column": "sortByTaskName",
-            "click .description-column": "sortByTaskDescription",
-
+            "click .description-column": "sortByTaskDescription"
         },
 
         sortByTaskNumber: function () {
@@ -84,4 +83,4 @@
             Backbone.View.prototype.remove.apply(this, arguments);
         }
     });
-})(App,vent);
+})(App);

@@ -4,11 +4,11 @@
 
         template: _.template(
            '<div id="addTask">'+
-               '<div class="row">'+
-                   '<div class="form-group col-xs-4 col-xs-offset-3">'+
-                       '<h3>Add new task</h3>'+
-                   '</div>'+
-               '</div>'+
+           '<div class="row">'+
+           '<div class="form-group col-xs-4 col-xs-offset-3">'+
+           '<h3>Add new task</h3>'+
+           '</div>'+
+           '</div>'+
                '<div class="row">'+
                     '<div class="form-group col-xs-4 col-xs-offset-3">'+
                        ' <label for="task-name">Task Name</label>'+

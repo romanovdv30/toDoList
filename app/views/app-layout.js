@@ -1,7 +1,6 @@
-(function (App, vent) {
+(function (App) {
     App.Views.AppLayout = Backbone.View.extend({
         tagName: "div",
-        className: "container-fluid",
         id: "layout",
 
         events: {
@@ -108,4 +107,4 @@
             return this.$el;
         }
     });
-})(App, vent);
+})(App);
