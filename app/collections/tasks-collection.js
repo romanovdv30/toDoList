@@ -9,6 +9,12 @@
             return item.get(this.sortItem);
         },
 
+        complete: function() {
+            return this.filter(function(model){
+                return model.get('complete');
+            });
+        },
+
         sortCollection: function (newItem) {
             this.sortItem = newItem;
             this.sort();

@@ -1,10 +1,10 @@
 (function(){
      App.Models.Task = Backbone.Model.extend({
-         
+
         defaults: {
-            incomplete: true,
+            complete: false
         },
-         
+
         initialize: function(){
             console.log("New task was created");
             this.on("invalid", function(model,error){

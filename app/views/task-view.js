@@ -1,21 +1,26 @@
-(function(App){
+(function (App) {
     App.Views.TaskView = Backbone.View.extend({
-    tagName : "tr",
-    className : "task",
+        tagName: "tr",
+        className: "task",
 
-    template:_.template(
-            '<td><%=id%></td>'+
-            '<td><%=taskName%></td>'+
-            '<td><%=taskDescription%></td>'+
+        template: _.template(
+            '<td><%=id%></td>' +
+            '<td><%=taskName%></td>' +
+            '<td><%=taskDescription%></td>' +
             '<td>' +
-                '<input type="checkbox" class="check">'+
-            '</td>'+
+                '<input type="checkbox" class="task-complete-status">' +
+            '</td>' +
             '<td>' +
-                '<span class="editTask glyphicon glyphicon-pencil"></span>'  +
-                '<span> | </span>'+
+                '<span class="editTask glyphicon glyphicon-pencil"></span>' +
+                '<span> | </span>' +
                 '<span class="del glyphicon glyphicon-trash"></span>' +
             '</td>'
-    ),
+        ),
+        events: {
+            "click .editTask": "editTask",
+            "click .del": "destroyTask",
+            "change .task-complete-status": "toggleComplete"
+        },
 
         initialize: function (options) {
             this.options = options;
@@ -23,18 +28,18 @@
             this.listenTo(this.model, "destroy", this.removeTask, this);
         },
 
-        render: function () {
+        toggleComplete: function () {
+            this.model.set("complete", !this.model.get('complete'));
+            this.checked = this.model.get('complete');
+                },
+
+        render: function (event) {
             this.$el.html(
                 this.template(
                     this.model.toJSON()
                 )
             );
             return this.$el;
-        },
-
-        events: {
-            "click .editTask": "editTask",
-            "click .del": "destroyTask"
         },
 
 
@@ -49,5 +54,5 @@
         removeTask: function () {
             this.$el.remove();
         }
-});
-})(App,vent);
+    });
+})(App, vent);
