@@ -42,19 +42,22 @@
             this.listenTo(this.collection, "sorting", this.sort, this);
             this.listenTo(this.collection, "add", this.renderTask, this);
             this.listenTo(this.collection, "destroy", this.changeNumber, this);
+            this.listenTo(this.collection, "change", this.render, this);
             this.options = options;
             this.children = [];
         },
 
         render: function () {
+            this.children.forEach(function(item) {
+                item.remove();
+            });
             this.$el.append(this.template({}));
             this.$childContainer = this.$el.find("tbody");
             this.collection.each(this.renderTask, this);
-
             return this.$el;
         },
 
-        changeNumber: function(){
+        changeNumber: function() {
            var models = this.collection.models;
            for ( var i = 0; i< models.length; i++ ){
                models[i].set("id", i+1);
@@ -66,8 +69,17 @@
             this.$el.empty();
             this.render();
         },
-
         renderTask: function (task) {
+            var taskComplete = task.get("complete");
+
+            switch (this.collection.filterBy) {
+                case "complete":
+                    if (taskComplete === false) return;
+
+                case "incomplete":
+                    if (taskComplete === true) return;
+            }
+
             var taskView = new App.Views.TaskView({
                 model: task,
                 showEditForm: this.options.showEditForm

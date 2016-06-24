@@ -4,56 +4,33 @@
 
         template: _.template(
             '<div>' +
-                '<span>Show </span>' +
-                '<div class="btn-group buttons" role="group">' +
-                    '<button type="button" class="btn btn-default active" id="showAll">All</button>' +
-                    '<button type="button" class="btn btn-default" id="showCompleted">Completed</button>' +
-                    '<button type="button" class="btn btn-default" id="showNotCompleted">Not completed</button>' +
-                '</div>' +
+            '<span>Show </span>' +
+            '<div class="btn-group buttons" role="group">' +
+            '<button type="button" class="btn btn-default <%- filterBy === "all" ? "active" : "" %>" data-filter-by="all">All</button>' +
+            '<button type="button" class="btn btn-default <%- filterBy === "complete" ? "active" : "" %>" data-filter-by="complete">Completed</button>' +
+            '<button type="button" class="btn btn-default <%- filterBy === "incomplete" ? "active" : "" %>" data-filter-by="incomplete">Not completed</button>' +
+            '</div>' +
             '</div>'
         ),
 
         events: {
-            "click #showCompleted": "showCompletedTasks",
-            "click #showNotCompleted": "showIncompletedTasks",
-            "click #showAll": "showAllTasks",
-            "click .buttons": "makeActive"
+            "click [data-filter-by]": "toggleFilter"
         },
 
-        makeActive: function(event) {
-            var childs = $(".buttons").children();
-            for(var i = 0; i < childs.length; i++){
-                childs.removeClass("active")
-            }
-            $(event.target).addClass("active");
+        initialize() {
+            this.collection.filterBy = this.collection.filterBy || 'all';
+            this.listenTo(this.collection, 'change', this.render);
         },
 
-        showCompletedTasks: function () {
-          this.collection.set("filter","complete");
+        toggleFilter: function ( e ) {
+            this.collection.filterBy = e.target.dataset.filterBy;
+            this.collection.trigger('change');
         },
 
-        showIncompletedTasks: function () {
-            var tasks = $(".task");
-            for (var i = 0; i < tasks.length; i++) {
-                var task = tasks[i];
-                if(!$(task).find(".check").prop("checked")) {
-                    $(task).css("display", "table-row");
-                } else {
-                    $(task).css("display", "none");
-                }
-            }
-        },
-
-        showAllTasks: function () {
-            var models = this.collection.models;
-            var tasks = $(".task");
-            for (var i = 0; i < models.length; i++) {
-                $(tasks[i]).css("display", "table-row");
-            }
-        },
         render: function () {
-            this.$el.append(this.template({}));
-            return this.$el;
+            return this.$el.html(
+                this.template({ filterBy: this.collection.filterBy })
+            );
         }
     });
 })(App);

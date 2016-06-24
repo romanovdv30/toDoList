@@ -8,7 +8,7 @@
             '<td><%=taskName%></td>' +
             '<td><%=taskDescription%></td>' +
             '<td>' +
-                '<input type="checkbox" class="task-complete-status">' +
+            '<input type="checkbox" class="task-complete-status" <%- complete ? "checked" : "" %> />' +
             '</td>' +
             '<td>' +
                 '<span class="editTask glyphicon glyphicon-pencil"></span>' +
@@ -30,7 +30,6 @@
 
         toggleComplete: function () {
             this.model.set("complete", !this.model.get('complete'));
-            this.checked = this.model.get('complete');
                 },
 
         render: function (event) {
