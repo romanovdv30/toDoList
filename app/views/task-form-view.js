@@ -9,9 +9,9 @@
                '</header>'+
                '<div class="form-body">'+
                     '<label for="task-name">Task Name</label>'+
-                    '<input type="text" class="form-control" id="task-name" placeholder="Enter task name">'+
+                    '<input type="text" class="form-control" id="task-name" name="taskName" placeholder="Enter task name">'+
                     '<label for="task-description">Task description</label>'+
-                    '<input type="text" class="form-control" id="task-description" placeholder="Enter task description">'+
+                    '<input type="text" class="form-control" id="task-description" name="taskDescription" placeholder="Enter task description">'+
                '</div>'+
                '<footer>'+
                    '<button type="button" class="btn cancelNewTask">Cancel ' +
@@ -24,7 +24,12 @@
            '</div>'
         ),
         events:{
-            "click .saveEdit" : "saveEditing"
+            "click .saveEdit" : "saveEditing",
+            'change input' : 'applyChanges',
+        },
+
+        applyChanges(e) {
+            this.model.set(e.target.name, e.target.value);
         },
 
         initialize: function(options) {
@@ -32,7 +37,7 @@
         },
 
         saveEditing: function(){
-            this.options.saveChanges(this.model);
+            this.options.onSave(this.model);
         },
 
         render: function() {

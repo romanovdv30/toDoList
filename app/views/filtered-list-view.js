@@ -4,30 +4,30 @@
 
         initialize: function (options) {
             this.options = options;
-            this.addChildViews();
+            this.addComponents();
         },
 
-        addChildViews: function () {
-            var filter = new App.Views.Filter({
-                collection: this.collection
-            });
-            var tasksViews = new App.Views.TaskTable({
-                collection: this.collection,
-                showTaskForm: this.options.showTaskForm,
-                showEditForm: this.options.showEditForm
-            });
-
-            this.$el.append(
-                filter.render()
-                )
-                .append(
-                    tasksViews.render()
-                );
-
+        addComponents: function () {
+            this.components = {
+                filter: new App.Views.Filter({
+                    collection: this.collection
+                }),
+                tasksViews: new App.Views.TaskTable({
+                    collection: this.collection,
+                    showTaskForm: this.options.showTaskForm,
+                    showEditForm: this.options.showEditForm
+                })
+            };
             return this;
         },
 
         render: function () {
+            this.$el.append(
+                this.components.filter.render()
+                )
+                .append(
+                    this.components.tasksViews.render()
+                );
             return this.$el;
         }
     });

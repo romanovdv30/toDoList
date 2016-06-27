@@ -1,5 +1,4 @@
 (function (App, w, _, $) {
-    w.vent = _.extend({}, Backbone.Events);
 
     function renderApp() {
         App.layout =  new App.Views.AppLayout({

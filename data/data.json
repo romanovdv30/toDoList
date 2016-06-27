@@ -1,11 +1,9 @@
 [
   {
-    "id": 1,
     "taskName": "Go to the store",
     "taskDescription": "Buy toast, milk and honey"
   },
   {
-    "id": 2,
     "taskName": "Sing",
     "taskDescription": "Sing silly song"
   }

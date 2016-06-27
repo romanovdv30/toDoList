@@ -4,7 +4,7 @@
         className: "task",
 
         template: _.template(
-            '<td><%=id%></td>' +
+            '<td><%=id + 1%></td>' +
             '<td><%=taskName%></td>' +
             '<td><%=taskDescription%></td>' +
             '<td>' +
@@ -16,6 +16,7 @@
                 '<span class="del glyphicon glyphicon-trash"></span>' +
             '</td>'
         ),
+
         events: {
             "click .editTask": "editTask",
             "click .del": "destroyTask",
@@ -30,17 +31,16 @@
 
         toggleComplete: function () {
             this.model.set("complete", !this.model.get('complete'));
-                },
+        },
 
-        render: function (event) {
+        render: function () {
             this.$el.html(
                 this.template(
-                    this.model.toJSON()
+                    _.assign({ id: this.options.index }, this.model.attributes)
                 )
             );
             return this.$el;
         },
-
 
         editTask: function () {
             this.options.showEditForm(this.model);
@@ -48,10 +48,6 @@
 
         destroyTask: function () {
             this.model.destroy();
-        },
-
-        removeTask: function () {
-            this.$el.remove();
         }
     });
 })(App, vent);

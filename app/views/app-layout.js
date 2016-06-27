@@ -9,34 +9,25 @@
         },
 
         initialize: function () {
-            this.addChildViews()
-                .cacheViewSelectors();
+            this.addComponents();
         },
 
-        addChildViews: function () {
+        addComponents: function () {
             this.tasksCollection = new App.Collections.Tasks([]);
-
-            var header = new App.Views.Header({
-                model: new Backbone.Model({}),
-                showTaskForm: this.showTaskForm.bind(this),
-                showTaskTable: this.showTaskTable.bind(this)
-            });
-
-            var main = new App.Views.FilteredListView({
-                model: new Backbone.Model({}),
-                collection: this.tasksCollection,
-                showEditForm: this.showEditForm.bind(this),
-                showTaskForm: this.showTaskForm.bind(this),
-                showTaskTable: this.showTaskTable.bind(this)
-            });
-
-            this.$el
-                .append(
-                    header.render()
-                )
-                .append(
-                    main.render()
-                )
+            this.components = {
+                header: new App.Views.Header({
+                    model: new Backbone.Model({}),
+                    showTaskForm: this.showTaskForm.bind(this),
+                    showTaskTable: this.showTaskTable.bind(this)
+                }),
+                main: new App.Views.FilteredListView({
+                    model: new Backbone.Model({}),
+                    collection: this.tasksCollection,
+                    showEditForm: this.showEditForm.bind(this),
+                    showTaskForm: this.showTaskForm.bind(this),
+                    showTaskTable: this.showTaskTable.bind(this)
+                })
+            };
             return this;
         },
 
@@ -58,17 +49,11 @@
             if (document.querySelector("#task-form")) {
                 return;
             }
+            var taskForm = new App.Views.TaskForm({
+                model: model || new Backbone.Model({}),
+                onSave: this.saveChanges.bind(this)
+            });
 
-            if (model) {
-                var taskForm = new App.Views.TaskForm({
-                    model: model,
-                    saveChanges: this.saveChanges.bind(this)
-                });
-            } else {
-                var taskForm = new App.Views.TaskForm({
-                    model: new Backbone.Model({})
-                });
-            }
             this.$el.append(taskForm.render());
             this.hideTaskTable();
         },
@@ -77,21 +62,19 @@
             this.showTaskForm(model);
             $("button.save").replaceWith(
                 '<button type="button" class="btn btn saveEdit">Save Changes ' +
-                    '<span class="glyphicon glyphicon-folder-open"></span>'+
+                '<span class="glyphicon glyphicon-folder-open"></span>' +
                 '</button>');
             this.$el.find("#task-name").val(model.get("taskName"));
             this.$el.find("#task-description").val(model.get("taskDescription"));
         },
 
         saveChanges: function (model) {
-            model.set("taskName", this.$el.find("#task-name").val());
-            model.set("taskDescription", this.$el.find("#task-description").val());
-            this.clearInput();
+            this.tasksCollection.push(model, {merge: true});
+            this.showTaskTable();
         },
 
         addNewTask: function () {
             var newTask = {
-                id: this.tasksCollection.length + 1,
                 taskName: this.$el.find("#task-name").val(),
                 taskDescription: this.$el.find("#task-description").val()
             };
@@ -107,6 +90,14 @@
         },
 
         render: function () {
+            this.$el
+                .append(
+                    this.components.header.render()
+                )
+                .append(
+                    this.components.main.render()
+                );
+            this.cacheViewSelectors();
             return this.$el;
         }
     });

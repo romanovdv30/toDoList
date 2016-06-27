@@ -41,46 +41,45 @@
         initialize: function (options) {
             this.listenTo(this.collection, "sorting", this.sort, this);
             this.listenTo(this.collection, "add", this.renderTask, this);
-            this.listenTo(this.collection, "destroy", this.changeNumber, this);
-            this.listenTo(this.collection, "change", this.render, this);
+            this.listenTo(this.collection, "change destroy", this.render, this);
             this.options = options;
             this.children = [];
         },
 
-        render: function () {
-            this.children.forEach(function(item) {
-                item.remove();
-            });
-            this.$el.append(this.template({}));
+        render: function () {            
+            this.removeChildren();
+            this.$el.html(this.template({}));
             this.$childContainer = this.$el.find("tbody");
             this.collection.each(this.renderTask, this);
             return this.$el;
         },
 
-        changeNumber: function() {
-           var models = this.collection.models;
-           for ( var i = 0; i< models.length; i++ ){
-               models[i].set("id", i+1);
-           }
-        },
-
         sort: function (item) {
             this.collection.sortCollection(item);
-            this.$el.empty();
+            this.removeChildren();
             this.render();
         },
+
+        removeChildren() {
+            this.children.forEach(function(child) {
+                child.remove();
+            }); 
+            this.children.length = 0;           
+        },
+
         renderTask: function (task) {
             var taskComplete = task.get("complete");
 
             switch (this.collection.filterBy) {
                 case "complete":
                     if (taskComplete === false) return;
-
+                break;
                 case "incomplete":
                     if (taskComplete === true) return;
             }
 
             var taskView = new App.Views.TaskView({
+                index: this.collection.indexOf(task),
                 model: task,
                 showEditForm: this.options.showEditForm
             });
@@ -89,9 +88,7 @@
         },
 
         remove: function () {
-            this.children.forEach(function(child) {
-                child.remove();
-            });
+            this.removeChildren();
             Backbone.View.prototype.remove.apply(this, arguments);
         }
     });
