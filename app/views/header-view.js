@@ -49,4 +49,4 @@
             return this.$el;
         }
     });
-})(App,vent);
+})(App);

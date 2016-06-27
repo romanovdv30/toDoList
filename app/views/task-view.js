@@ -50,4 +50,4 @@
             this.model.destroy();
         }
     });
-})(App, vent);
+})(App);

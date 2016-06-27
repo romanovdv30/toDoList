@@ -7,9 +7,9 @@
                 '<table class="table table-hover table-bordered">' +
                     '<thead class = "cursor-pointer">' +
                         '<tr class="active">' +
-                            '<th class="id-column pointer">#</th>' +
-                            '<th class="name-column pointer">Name</th>' +
-                            '<th class="description-column pointer">Description</th>' +
+                            '<th class="id-column pointer" data-sort-by="id">#</th>' +
+                            '<th class="name-column pointer" data-sort-by="taskName">Name</th>' +
+                            '<th class="description-column pointer" data-sort-by="taskDescription">Description</th>' +
                             '<th>Complete</th>' +
                             '<th>Edit link</th>' +
                         '</tr>' +
@@ -21,25 +21,15 @@
         ),
 
         events: {
-            "click .id-column": "sortByTaskNumber",
-            "click .name-column": "sortByTaskName",
-            "click .description-column": "sortByTaskDescription"
+            "click [data-sort-by]": "sortCollection"
         },
 
-        sortByTaskNumber: function () {
-            this.sort("id");
-        },
-
-        sortByTaskName: function () {
-            this.sort("taskName");
-        },
-
-        sortByTaskDescription: function () {
-            this.sort("taskDescription");
+        sortCollection: function (e) {
+            this.sort(e.target.dataset.sortBy);
         },
 
         initialize: function (options) {
-            this.listenTo(this.collection, "sorting", this.sort, this);
+            //this.listenTo(this.collection, "sorting", this.sort, this);
             this.listenTo(this.collection, "add", this.renderTask, this);
             this.listenTo(this.collection, "change destroy", this.render, this);
             this.options = options;
