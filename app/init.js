@@ -1,16 +1,7 @@
 (function (App, w, _, $) {
-    w.vent = _.extend({}, Backbone.Events);
-    
-    function initApp() {
-       
-    }
 
-    function getAppInitialData() {
-        
-    }
-    
     function renderApp() {
-        App.layout =  new App.Views.Layout({
+        App.layout =  new App.Views.AppLayout({
             model: new Backbone.Model({})
         });
 
@@ -20,9 +11,7 @@
     }
     
     $(function() {
-        initApp();
         renderApp();
-        getAppInitialData();
     });
 })(
     window.App = {

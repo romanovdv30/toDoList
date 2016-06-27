@@ -1,0 +1,60 @@
+.complete {
+    background: #d6fff3;
+}
+
+#tasks,#form button,#form label {
+    margin-top: 20px;
+    text-align: center;
+    outline: none;
+}
+
+.tasks-btn, .save, .saveEdit {
+    margin-right: 10px;
+}
+
+.editTask:hover, .del:hover {
+    color: #696969;
+    cursor: pointer;
+}
+
+th:first-child, td:first-child {
+    width: 5%;
+}
+
+th:last-child, td:last-child {
+    width: 10%;
+}
+
+th:nth-child(4), td:nth-child(4) {
+    width: 10%;
+}
+
+table {
+    table-layout: fixed;
+}
+
+th {
+    text-align: center;
+}
+
+ul.nav {
+    margin-top: 0.625em
+}
+
+td {
+    vertical-align: middle;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+#form {
+    width: 350px;
+    margin: 0 auto;
+}
+
+#form button {
+    float: right;
+}
+

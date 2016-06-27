@@ -1,44 +1,39 @@
-(function() {
+(function(App) {
     App.Views.Header = Backbone.View.extend({
         tagName: "div",
-        className: "container-fluid",
         id: "header",
 
         template: _.template (
             '<div class="row">'+
-                '<h1>To Do List</h1>'+
                 '<div class="navbar navbar-inverse">'+
                     '<div class="container">'+
-                      '<div class="navbar-header pull-left">'+
-                            '<button type="button" class="navbar-toggle pull-left btn-large" data-toggle="collapse" data-target="#responsive-menu">'+
+                      '<div class="navbar-brand">To Do List</div>'+
+                      '<button type="button" class="navbar-toggle pull-right btn-large" data-toggle="collapse" data-target="#responsive-menu">'+
                                 '<span class="icon-bar"></span>'+
                                 '<span class="icon-bar"></span>'+
                                 '<span class="icon-bar"></span>'+
-                            '</button>'+
-                      '</div>'+
+                      '</button>'+
                       '<div class="collapse navbar-collapse" id="responsive-menu">'+
                             '<ul class="nav navbar-nav pull-right">'+
-                                '<li><a href="#" id="list">List</a></li>'+
-                                '<li><a href="#" id="create">Create</a></li>'+
+                                '<li><button type="button" class="tasks-btn btn btn-link">Tasks</button></li>'+
+                                '<li><button type="button" class="create-btn btn btn-link">Create</button></li>'+
                             '</ul>'+
-                    '</div>'+
+                      '</div>'+
                 '</div>'+
             '</div>'
         ),
 
         events:{
-            "click #create": "onCreate",
-            "click #list": "showTaskList"
+            "click .tasks-btn": "showTaskTable",
+            "click .create-btn":"showTaskForm"
         },
 
-        onCreate: function(event){
-            event.preventDefault();
-            this.options.onCreate();
+        showTaskTable: function(){
+            this.options.showTaskTable();
         },
 
-        showTaskList: function(event){
-            event.preventDefault();
-            vent.trigger("listShowing");
+        showTaskForm: function(){
+            this.options.showTaskForm();
         },
 
         initialize: function(options) {
@@ -54,4 +49,4 @@
             return this.$el;
         }
     });
-})();
+})(App);
