@@ -4,7 +4,7 @@
         className: "task",
 
         template: _.template(
-            '<td><%=id + 1%></td>' +
+            '<td><%-id +1%></td>' +
             '<td><%=taskName%></td>' +
             '<td><%=taskDescription%></td>' +
             '<td>' +

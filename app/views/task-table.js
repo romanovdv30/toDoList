@@ -29,7 +29,7 @@
         },
 
         initialize: function (options) {
-            //this.listenTo(this.collection, "sorting", this.sort, this);
+            this.listenTo(this.collection, "sorting", this.sort, this);
             this.listenTo(this.collection, "add", this.renderTask, this);
             this.listenTo(this.collection, "change destroy", this.render, this);
             this.options = options;
@@ -46,7 +46,6 @@
 
         sort: function (item) {
             this.collection.sortCollection(item);
-            this.removeChildren();
             this.render();
         },
 
@@ -69,7 +68,7 @@
             }
 
             var taskView = new App.Views.TaskView({
-                index: this.collection.indexOf(task),
+                index: this.children.length,
                 model: task,
                 showEditForm: this.options.showEditForm
             });
